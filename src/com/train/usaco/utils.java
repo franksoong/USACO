@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -195,5 +196,56 @@ public class utils {
 			return year % 4 == 0;
 		}
 	}
+
+	// 给定数组，生成两两组合
+	public static ArrayList<Tuple2<Integer>> generate_wormhole_combinations(int count) {
+		ArrayList<Tuple2<Integer>> result = new ArrayList<Tuple2<Integer>>();
+
+		ArrayList<Integer> indexes = new ArrayList<Integer>() {
+			{
+				for (int i = 0; i < count; i++) {
+					add(i);
+				}
+			}
+		};
+
+		if (indexes.size() >= 2) {
+			for (int i = 0; i < indexes.size(); i++) {
+				result.addAll(generate_subset(indexes.subList(i, indexes.size())));
+			}
+		}
+
+		return result;
+	}
+
+	public static ArrayList<Tuple2<Integer>> generate_subset(List<Integer> list) {
+		ArrayList<Tuple2<Integer>> result = new ArrayList<Tuple2<Integer>>();
+
+		for (int j = 1; j < list.size(); j++) {
+			result.add(new Tuple2<Integer>(list.get(0), list.get(j)));
+		}
+
+		return result;
+	}
+
+	public static class Tuple2<T1> {
+		public final T1 item1;
+		public final T1 item2;
+
+		public Tuple2(T1 item1, T1 item2) {
+			this.item1 = item1;
+			this.item2 = item2;
+		}
+	}
+
+	public static int get_offset(int start, int shift, int length) {
+		int result = (start + shift) % length;
+		if (result < 0) {
+			result += length;
+		}
+		return result;
+	}
+
+	// 给定数组，生成两两配对
 
 }
