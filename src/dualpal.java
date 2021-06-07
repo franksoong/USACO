@@ -31,17 +31,21 @@ class dualpal {
 	public static ArrayList<Integer> solve(int start, int count) {
 		ArrayList<Integer> result = new ArrayList<Integer>();
 
-		for (int number = start; result.size() < count; number++) {
+		int n = 0;
+		for (int number = start; n < count; number++) {
 
 			int palindromic_cases = 0;
-			for (int base = 2; base <= 10 && palindromic_cases < 2; base++) {
+			for (int base = 2; base <= 10; base++) {
 				String number2 = to_number_of_base(number, base);
 				if (is_palindromic(number2)) {
 					palindromic_cases++;
 				}
-			}
-			if (palindromic_cases == 2) {
-				result.add(number);
+
+				if (palindromic_cases == 2) {
+					result.add(number);
+					n++;
+					break;
+				}
 			}
 		}
 
