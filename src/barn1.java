@@ -43,10 +43,6 @@ public class barn1 {
 		int len = occupied_stalls.length;
 		Arrays.sort(occupied_stalls);
 
-		// by default
-		int total_length = occupied_stalls[len - 1] - occupied_stalls[0] + 1;
-		int boards_count = 1;
-
 		// 1, calculate intervals(gap)
 		ArrayList<Interval> intervals = new ArrayList<Interval>();
 		for (int i = 0; i < len - 1; i++) {
@@ -56,11 +52,21 @@ public class barn1 {
 			}
 		}
 
-		// 2, cut
+		// 2, cut from the largest intervals
+
+		// by default
+		// the worst case
+		int total_length = occupied_stalls[len - 1] - occupied_stalls[0] + 1;
+		int current_boards_count = 1;
+
 		Collections.sort(intervals, Collections.reverseOrder());
-		for (int i = 0; i < intervals.size() && boards_count < m_boards; i++) {
-			total_length -= intervals.get(i).lenght();
-			boards_count++;
+		for (int i = 0; i < intervals.size(); i++) {
+			if (current_boards_count == m_boards) {
+				break;
+			}
+
+			total_length -= intervals.get(i).length();
+			current_boards_count++;
 		}
 
 		return total_length;
@@ -79,13 +85,13 @@ public class barn1 {
 			this.end = end;
 		}
 
-		public int lenght() {
+		public int length() {
 			return this.end - this.start - 1;
 		}
 
 		@Override
 		public int compareTo(Interval o) {
-			return this.lenght() - o.lenght();
+			return this.length() - o.length();
 		}
 	}
 

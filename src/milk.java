@@ -66,6 +66,9 @@ public class milk {
 		return cost;
 	}
 
+	// class - ¹æ¸ñ
+	// object - ÊµÀý
+	// program - object interaction
 	public static class Farmer implements Comparable<Farmer> {
 		public int price;
 		public int amount;
